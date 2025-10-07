@@ -1,0 +1,32 @@
+Welcome to the Gemini AI Chat System!
+
+This is an example document that demonstrates how the vector database works with the chat system. The system uses this document to provide context-aware responses to your questions.
+
+Key Features:
+1. Vector Database Integration
+   - Uses ChromaDB for efficient document storage and retrieval
+   - Converts text into vector embeddings for similarity search
+   - Maintains persistent storage of document vectors
+
+2. Document Processing
+   - Automatically processes text documents
+   - Splits documents into manageable chunks
+   - Preserves context through overlapping chunks
+
+3. Context-Aware Responses
+   - Finds relevant document sections based on your questions
+   - Uses context to provide more accurate answers
+   - Maintains conversation history for better context
+
+4. Easy to Use
+   - Simple command-line interface
+   - Docker support for easy deployment
+   - Automatic document indexing
+
+To get started:
+1. Add your own documents to the 'documents' directory
+2. Start the vector database using Docker
+3. Run the chat application
+4. Ask questions about your documents
+
+The system will automatically find relevant information from your documents and use it to provide informed responses to your questions. 

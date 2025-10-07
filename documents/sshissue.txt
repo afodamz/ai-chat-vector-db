@@ -1,0 +1,97 @@
+The error **"Could not open a connection to your authentication agent"** means that the SSH agent is not running. Follow these steps to fix it:  
+
+---
+
+### ✅ **Step 1: Start the SSH Agent Manually**  
+Run the following command to start the SSH agent:  
+```bash
+eval "$(ssh-agent -s)"
+```
+You should see output like:
+```
+Agent pid 12345
+```
+
+Then, add your SSH key:
+```bash
+ssh-add ~/.ssh/id_rsa
+```
+(If using `id_ed25519`, replace `id_rsa` with `id_ed25519`)
+
+---
+
+### ✅ **Step 2: If Step 1 Fails, Restart SSH Agent**  
+If you get an error, **try restarting the agent manually**:  
+```bash
+pkill ssh-agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+```
+
+---
+
+### ✅ **Step 3: Ensure Your SSH Key Exists**  
+Check if you have an SSH key by running:  
+```bash
+ls -al ~/.ssh
+```
+If you don’t see `id_rsa` or `id_ed25519`, generate a new key:  
+```bash
+ssh-keygen -t rsa -b 4096 -C "your-email@example.com"
+```
+Then, add it to the SSH agent:  
+```bash
+ssh-add ~/.ssh/id_rsa
+```
+
+---
+
+### ✅ **Step 4: Use a Persistent SSH Agent (Linux/macOS Only)**  
+If the SSH agent stops after logging out, add this to your `~/.bashrc` or `~/.zshrc` file:  
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+```
+Then, reload the shell:  
+```bash
+source ~/.bashrc   # or source ~/.zshrc
+```
+
+---
+
+### ✅ **Step 5: For Windows Users (Using Git Bash or WSL)**  
+On **Git Bash**, use:  
+```bash
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+```
+If it fails, try running Git Bash as **Administrator**.
+
+On **WSL (Windows Subsystem for Linux)**, use:  
+```bash
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+```
+If the agent stops after closing the terminal, use:  
+```bash
+exec ssh-agent bash
+```
+
+---
+
+### ✅ **Step 6: Test SSH Connection**  
+Now test your connection with:  
+```bash
+ssh -T git@ssh.dev.azure.com
+```
+If successful, you’ll see:
+```
+Welcome to Azure Repos!
+```
+
+Now try cloning or pushing again:
+```bash
+git clone git@ssh.dev.azure.com:v3/YOUR_ORG/YOUR_PROJECT/YOUR_REPO
+```
+
+Let me know if you still have issues! 🚀
